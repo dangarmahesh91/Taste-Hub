@@ -5,9 +5,8 @@ It allows users to browse dishes, add them to the cart, and place orders easily.
 
 ## 🚀 Technologies Used
 - ASP.NET MVC
-- C#
 - SQL Server
-- HTML, CSS, Bootstrap
+- HTML, CSS, JavaSCript
 
 ## ⚙️ Features
 - User Registration & Login
@@ -15,7 +14,3 @@ It allows users to browse dishes, add them to the cart, and place orders easily.
 - Admin Panel for managing menu items
 - Responsive Design
 
-## 💻 How to Run
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/TasteHub.git
