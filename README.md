@@ -9,8 +9,15 @@ It allows users to browse dishes, add them to the cart, and place orders easily.
 - HTML, CSS, JavaSCript
 
 ## ⚙️ Features
-- User Registration & Login
-- Add to Cart & Checkout
-- Admin Panel for managing menu items
-- Responsive Design
+
+### 👨‍🍳 Client Side
+- User Registration & Login  
+- Browse food items dynamically  
+- Add to Cart and Checkout system  
+- Responsive layout for all devices  
+
+### 🔐 Admin Side
+- Add, Update, and Delete Food Items  
+- Manage Categories and Orders  
+- View Registered Users  
 
