@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "~/Views/Shared/Client_Layout.cshtml";
+}
+<style>
+  
+    .form{
+        font-family:'Microsoft PhagsPa';
+        font-size:30px;
+        /* box-shadow:1px 10px 10px lightblue; */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        align-content:center;
+       /*  background-color: #e6f0ff; */
+        background-color:white;
+        padding:20px;
+        margin:0 auto;
+        border-radius: 5px;
+        width:500px;
+        margin-top:20px;
+}
+    .form input,textarea{
+       margin-top:10px;
+       border-radius:5px;
+       width:450px;
+       padding:8px;
+    }
+    label{
+        font-family:'Microsoft PhagsPa';
+        font-weight:bold;
+        font-size:35px;
+        color: #1e3a8a; /* Deep Blue */
+        margin-bottom: 20px;
+        text-align:center;
+    }
+    .btn{
+        width:330px;
+        background-color: #1e3a8a;
+        color:white;
+        font-weight:bold;
+        font-size:25px;
+    }
+    .btn:hover{
+            background-color: #162d6b;
+            color:white;
+    }
+</style>
+<body style="background-color:#fffff0">
+    <form class="form">
+        <label>Please Share Your Experience</label><br />
+        <input type="text" id="Username" name="Username" placeholder="Enter Username" /><br />
+        <input type="email" name="Email" id="Email" placeholder="Enter Email" /><br />
+        <textarea id="Message" name="Message" rows="3" placeholder="Write Your Experiance" cols="22"></textarea><br />
+        <input type="button" name="btn_insert" onclick="insert()" class="btn" value="Submit" />
+    </form>
+</body>
+
+<script>
+    function insert()
+    {
+        var name=document.getElementById("Username").value;
+        var email=document.getElementById("Email").value;
+        var message=document.getElementById("Message").value;
+
+        $.post("/Home/Feedback",{Username:name,Email:email,Message:message})
+        .done(function()
+        {
+            alert("Thank's For Your Feedback");
+        })
+        .fail(function()
+        {
+            alert("Data Not Insert");
+        });
+    }
+</script>

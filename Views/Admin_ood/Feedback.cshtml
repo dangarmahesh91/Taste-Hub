@@ -1,0 +1,31 @@
+﻿@model List<Taste_Hub.Models.Class_Feedback>
+@{
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+
+}
+<style>
+    table{
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+    td,th{
+        border: 1px solid black;
+    }
+</style>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Message</th>
+    </tr>
+    @foreach(var data in Model)
+    {
+        <tr>
+            <td>@data.Id</td>
+            <td>@data.Username</td>
+            <td>@data.Email</td>
+            <td>@data.Message</td>
+        </tr>
+    }
+</table>

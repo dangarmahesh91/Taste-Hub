@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+<style>
+    body {
+    background-color: #f4f4f4;
+    }
+
+    .box {
+    display: block;
+    background-color: white;
+    padding: 20px;
+    /*    box-shadow: 5px 10px 5px #ccc,0px 0px 8px #ccc; */
+    box-shadow: 0px 0px 10px #ccc;
+    width: 450px;
+    margin: 0 auto;
+    margin-top: 200px;
+    }
+
+    .box form {
+    font-family: Arial;
+    align-content: center;
+    margin: 30px;
+    padding: 10px;
+    }
+
+    .box form input {
+    font-size: 20px;
+    font-family: 'Microsoft PhagsPa';
+    margin-top: 20px;
+    padding: 8px;
+    width: 400px;
+    }
+
+    .lbl {
+    font-size: 35px;
+    font-weight: bold;
+    }
+
+    .btn {
+    width: 350px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    }
+
+    .reg-text {
+    font-size: 21px;
+    font-family: arial;
+    margin-top: 20px;
+    padding: 5px;
+    margin-bottom: -4px;
+    text-align: center;
+    }
+</style>
+<body>
+    <div class="box">
+        <form action="/Admin_ood/Register" method="post">
+            <label class="lbl">Add New Admin</label><br />
+            <input type="text" name="Username" id="Username" placeholder="Enter Username" /><br />
+            <input type="password" name="Password" id="Password" placeholder="Enter Password" /><br />
+            <input type="password" name="ConfiPass" id="ConfiPass" placeholder="Enter Confirm Password" /><br />
+            <input type="submit" class="btn" name="btn_insert" onclick="insert()" value="Add" />
+            <p class="reg-text">You are Already Registered? Please Login <a asp-action="Index" style="font-weight:bold;" asp-controller="Admin_ood">Login</a></p>
+        </form>
+    </div>
+    @if (TempData["registermsg"] != null)
+    {
+        <script>
+            alert(@TempData["registermsg"]);
+            </script>
+    }
+</body>
+<script>
+    function insert()
+    {
+        var confipass=document.getElementById("ConfiPass").value;
+        var name=document.getElementById("Username").value;
+        var pass=document.getElementById("Password").value;
+
+        if(pass==confipass)
+        {
+            $.post("/Admin_ood/Register",{Username:name,Password:pass})
+            .done(function()
+            {
+                // alert("Registration Success");
+            })
+            .fail(function()
+            {
+                alert("Ragistration Failed");
+            })
+        }
+        else
+        {
+            alert("Password & Confirm Password Not Match");
+        }
+    }
+</script>

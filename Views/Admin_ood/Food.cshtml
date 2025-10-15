@@ -1,0 +1,139 @@
+﻿@model List<Taste_Hub.Models.Class_Admin_Food>
+@{
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+<style>
+    .box{
+    margin:0 auto;
+    padding:20px;
+    width:680px;
+    border-radius:20px;
+    box-shadow:8px 8px 5px lightgray,-3px -3px 2.5px lightgray;
+    /*  border:0.5px solid lightgray; */
+    margin-top:15px;
+    display:flex;
+    }
+    box form{
+    margin: 0 auto;
+    }
+    .box form input,textarea{
+    font-size:30px;
+    font-family:'Microsoft PhagsPa';
+    margin-top: 9px;
+    width: 95%;
+    padding:10px;
+    border-radius:5px;
+    }
+    label{
+    font-size: 35px;
+    font-family: Arial;
+    font-weight:50;
+    margin-top: 15px;
+    }
+    .btn{
+    padding:20px;
+    background: #007bff;
+    color: white;
+    width:100%;
+    font-size:30px;
+    }
+
+    .btn:hover {
+    background: #0056b3;
+    color: white;
+    }
+    .box form hr{
+    width: 300px;
+    margin:0 auto;
+    margin-top:-10px;
+    color:black;
+    }
+    .btnedit:hover{
+        
+    }
+</style>
+<div class="box">
+    <form action="/Admin_ood/Food" id="form" enctype="multipart/form-data" method="post">
+        <h2 style="font-size:40px;text-align:center;color:#333;margin-bottom:15px;font-weight:bold;font-family:'Microsoft PhagsPa';">Add Food Item</h2><hr /><br />
+        <label>Name</label>
+        <input type="hidden" id="Id" name="Id" />
+        <input type="text" name="Name" id="Name" placeholder="Enter Name" /> <br />
+        <label>Description</label>
+        <textarea id="Description" name="Description" placeholder="Enter Description" rows="2" cols="22"></textarea><br />
+        <label>Category</label>
+        <input type="text" name="Category" id="Category" placeholder="Enter Category" /><br />
+        <label>SubCategory</label>
+        <input type="text" name="SubCategory" id="SubCategory" placeholder="Enter SubCategory" /><br />
+        <label>Image</label>
+        <input type="file" name="Image" id="Image" style="width:60%;margin-top:13px" placeholder="Add Image" />&nbsp;&nbsp;<img id="ImagePreview" src="" alt="Alternate Text" height="100" width="100" /><br />
+        <label>Price</label>
+        <input type="text" name="Price" id="Price" placeholder="Enter Price" /><br />
+        <input type="submit" class="btn" id="btn" name="btn" value="Add" />
+    </form>
+</div>
+@if (ViewBag.foodinsert != null)
+{
+    <script>
+        alert("@TempData["foodinsert"]");
+    </script>
+}
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>SubCategory</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Edit/Delete</th>
+    </tr>
+    @foreach(var data in Model)
+    {
+        <tr>
+            <td>@data.Id</td>
+            <td>@data.Name</td>
+            <td>@data.Description</td>
+            <td>@data.Category</td>
+            <td>@data.SubCategory</td>
+            <td><img src="@data.Image" alt="Image" height="100" width="100" /></td>
+            <td>@data.Price</td>
+            <td>
+                <input type="button" title="Edit" name="btn_edt" class="btnedit" onclick="foodedit(@data.Id,'@data.Name','@data.Description','@data.Category','@data.SubCategory','@data.Image','@data.Price')" value="✏️" />
+                <input type="button" title="Delete" name="btn_dlt" class="btndelete" onclick="fooddelete(@data.Id)" value="🗑️" />
+            </td>
+            </tr>
+        }
+</table>
+<script>
+    function fooddelete(id)
+    {
+        $.post("/Admin_ood/fooddelete",{Id:id})
+        .done(function()
+        {
+            alert("Data Deleted Successfully");
+            location.reload();
+        })
+        .fail(function()
+        {
+            alert("Data Not Delete");
+        });
+    }
+    function foodedit(id,name,desc,cate,subcate,image,price)
+    {
+        document.getElementById("Id").value=id;
+        document.getElementById("Name").value=name;
+        document.getElementById("Description").value=desc;
+        document.getElementById("Category").value=cate;
+        document.getElementById("SubCategory").value=subcate;
+        document.getElementById("ImagePreview").src=image;
+        document.getElementById("Price").value=price;
+
+        const form=document.getElementById("form");
+        const btn=document.getElementById("btn");
+
+        btn.value="Update"; 
+        btn.type="submit";
+        form.action="/Admin_ood/foodupdate";
+    }
+</script>

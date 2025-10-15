@@ -1,0 +1,103 @@
+﻿@model Taste_Hub.Models.Class_Register;
+@{
+    Layout = "~/Views/Shared/Client_Layout.cshtml";
+}
+<style>
+    .box {
+        background-color: /* #e6f0ff */ /*  #eeeeee */ #f9f5f0;
+        margin: 0 auto;
+        padding: 20px;
+        height: 100%;
+        width: 500px;
+        margin-top: 20px;
+        box-shadow: 10px 10px 8px lightgray;
+        border-radius: 9px;
+    }
+
+        .box form {
+            font-family: Arial;
+            font-size: 30px
+        }
+
+            .box form input {
+                margin-top: 22px;
+                padding: 8px;
+                border-radius: 9px;
+                width:450px;
+            }
+
+    .lbl {
+        font-size: 40px;
+        font-family: 'Microsoft PhagsPa';
+        font-weight: bold;
+        color: #2c3e50;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .btn {
+        width: 385px;
+        padding: 20px;
+        font-size: 30px;
+        background-color: #2c3e50;
+        color: #ffffff;
+    }
+
+        .btn:hover {
+            background-color: #1a252f;
+            color: white;
+        }
+
+    .reg-text {
+        font-size: 21px;
+        font-family: arial;
+        margin-top: 20px;
+        padding: 5px;
+        margin-bottom: -4px;
+        text-align: center;
+    }
+    .reg-text:hover{
+        background-color:none;
+    }
+</style>
+<body style="background-color:#fffff0">
+<div class="box">
+    <form action="/Home/Registration" method="post">
+        <label class="lbl">Create an Account</label><br />
+        <input type="text" name="Username" id="Username" placeholder="Username" /><br />
+        <input type="text" name="City" id="City" placeholder="City" /><br />
+        <input type="text" name="Mobile" id="Mobile" placeholder="Mobile" /><br />
+        <input type="password" name="Password" id="Password" placeholder="Password" /><br />
+        <input type="password" id="ConfiPass" name="ConfiPass" placeholder="Confirm Password" /><br />
+        <input type="button" name="btn_insert" id="btn_insert" value="Register" onclick="insert()" class="btn" /><br />
+        <p class="reg-text">You are Already Registered? Please Login <a asp-action="Login" style="font-weight:bold;" asp-controller="Home">Login</a></p>
+    </form>
+</div>
+</body>
+<script>
+    function insert()
+    {
+        var confipass=document.getElementById("ConfiPass").value;
+        var name=document.getElementById("Username").value;
+        var city=document.getElementById("City").value;
+        var mobile=document.getElementById("Mobile").value;
+        var password=document.getElementById("Password").value;
+
+        if(password==confipass)
+        {
+            $.post("/Home/Registration",{Username:name,City:city,Mobile:mobile,Password:password})
+            .done(function()
+            {
+                alert("You Are Registered");
+            })
+            .fail(function()
+            {
+                alert("Data Not Insert");
+            });
+        }
+        else
+        {
+            alert("Password & Confirm Password Not Match");
+        }
+    }
+</script>

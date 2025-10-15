@@ -1,0 +1,102 @@
+﻿@model List<Taste_Hub.Models.Class_Cart>
+@{
+    Layout = "~/Views/Shared/Client_Layout.cshtml";
+}
+<style>
+    .tabletotal{
+        width:500px;
+        margin-top: 35px;
+        margin-bottom:35px;
+        border-spacing: 0 15px;
+    }
+        .tabletotal tr{
+            border-bottom:1px solid black;
+            font-size:20px;
+            height: 50px;
+        }
+
+        .tabletotal td {
+             margin-top:20px;
+            margin-bottom:50px;
+        }
+
+        .tabletotal .buttonorder {
+            background-color: #000000; /* Black background */
+            color: #ffffff;
+            margin-left:180px; 
+            padding:5px;
+            border-radius: 5px;
+            margin-left: 100px;
+            width: 50%;
+            margin-top: 10px;
+        }
+
+            .tabletotal .buttonorder:hover {
+            background-color: #333333; /* Dark gray on hover */
+            color: #ffffff;
+        }
+        
+</style>
+<body>
+    <h3 style="font-family:Arial;text-align:center;margin-top:18px;font-weight:bold">Your Cart (@ViewBag.CartCount items)</h3><hr style="width:270px;margin:0 auto;margin-bottom:20px;"/>
+<table class="table" style="margin:0 auto;">
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Delete</th>
+    </tr>
+    @foreach(var items in Model)
+    {
+        <tr>
+            <td>
+                <img src="@items.Image" height="100" style="border-radius:10px" width="100" alt="Alternate Text" />
+            </td>
+            <td>@items.Name</td>
+            <td> ₹ @items.Price</td>
+            <td>
+                <input type="button" name="delcart" id="delcart" onclick="cartdel(@items.Id)" style="color:black" value="❌" title="Delete" />
+            </td>
+        </tr>
+    }
+</table>
+<table class="tabletotal" align="right">
+    <tr>
+            <td style="font-weight:bold">Subtotal</td>
+            <td> ₹ @ViewBag.Total</td>
+    </tr>
+    <tr>
+            <td style="font-weight:bold">Tax</td>
+            <td> ₹ 0.00</td>
+    </tr>
+        <tr style="border-bottom:none;">
+            <td style="font-weight:bold">OrderTotal</td>
+            <td style="font-size:29px;">₹ @ViewBag.Total</td>
+    </tr>
+    <tr style="border-bottom:none;" align="right;margin:0 auto;">
+            <td align="center"><input type="button" class="buttonorder" align="center" onclick="buttonorder()" name="name" value="Order" /></td>
+    </tr>
+</table>
+
+</body>
+
+
+<script>
+    function cartdel(id)
+    {
+        $.post("/Home/cartdel",{Id:id})
+        .done(function()
+        {
+            alert("Date Deleted...");
+            window.location.reload();
+        })
+        .fail(function()
+        {
+            alert("Data Not Deleted");
+        });
+    }
+    function buttonorder()
+    {
+        window.location.href="/Home/Order";
+    }
+</script>

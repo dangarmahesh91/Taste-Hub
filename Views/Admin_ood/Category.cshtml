@@ -1,0 +1,132 @@
+﻿@model List<Taste_Hub.Models.Class_Admin_Category>
+@{
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+
+}
+<style>
+    .box{
+        margin:0 auto;
+        border-radius:10px;
+        font-family:'Microsoft PhagsPa';
+        margin-top:30px;
+        padding:20px;
+        width:700px;
+        box-shadow:8px 8px 5px lightgray,-3px -3px 2.5px lightgray;
+    }
+    .box form input{
+        font-size:30px;
+        font-family:'Microsoft PhagsPa';
+        width:100%;
+        border-radius:5px;
+        
+        padding:10px;
+    }
+    .box form label{
+        font-size: 35px;
+        font-family: 'Microsoft PhagsPa';
+         margin-top: 15px;
+    }
+    .box form hr{
+         width: 300px;
+         margin: 0 auto;
+        
+         color: black;
+    }
+    .btn{
+        background: #ff7a00; /* Orange Button */
+        color: white;
+    }
+    .btn:hover{
+            background: #e06600;
+            color: white;
+    }
+    table{
+        border:1px solid black;
+        border-collapse:collapse;
+        margin:0 auto;
+        margin-top:30px;
+    }
+    tr{
+        margin: 0 auto;
+    }
+    th,td{
+        border: 1px solid black;
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+<div class="box">
+    <form id="form" action="/Admin_ood/Category" enctype="multipart/form-data" method="post">
+        <h2 style="  color: #333;font-weight:bold;font-size:40px;text-align:center;margin-bottom:15px;">Add Category</h2><hr /><br />
+        <label>Name</label>&nbsp;&nbsp;
+        <input type="hidden" id="Id" name="Id" />
+        <input type="text" name="Name" id="Name" placeholder="Enter Category Name" /><br />
+        <label>Image</label>&nbsp;&nbsp;
+        <input type="file" name="Image" style="width:60%" id="Image" placeholder="Enter Category Image" />&nbsp;&nbsp;<img id="ImagePreview" width="100" height="100" alt="Image" /><br />
+        <input type="submit" id="btniu" class="btn" name="name" value="Add" /><br />
+    </form>
+</div>
+<table class="table align-content-lg-center">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Edit/Delete</th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td><img src="@item.Image" width="100" height="100" /></td>
+            <td>
+                <input type="button" onclick="catupd(@item.Id,'@item.Name','@item.Image')" name="btn_upd" title="Edit" value="✏️"  />
+                &nbsp;&nbsp;<input type="button" name="btn_dlt" title="Delete" value="🗑️" onclick="catdelete(@item.Id)" />
+            </td>
+        </tr>
+    }
+</table>
+<script>
+    function insert()
+    {
+        var name=document.getElementById("Name").value;
+        var image=document.getElementById("Image").value;
+
+        $.post("/Admin_ood/Category",{Name:name,Image:image})
+        .done(function()
+        {
+            alert("Data Inserted...");
+        })
+        .fail(function()
+        {
+            alert("Data Not Inserted");
+        })
+    }
+    function catdelete(id)
+    {
+        $.post("/Admin_ood/catdelete",{Id:id})
+        .done(function()
+        {
+            alert("Data Deleted...");
+            location.reload();
+        })
+        .fail(function()
+        {
+            alert("Data Not Delete");
+        });
+    }
+    function catupd(id,Name,Image)
+    {
+        document.getElementById("Name").value=Name;
+        document.getElementById("ImagePreview").src=Image;
+        document.getElementById("Id").value=id;
+
+        const form=document.getElementById("form");
+        const btn=document.getElementById("btniu");
+
+        btn.value="Update";
+        btn.type="submit";
+        form.action="/Admin_ood/categoryupdate";
+
+    }
+</script>

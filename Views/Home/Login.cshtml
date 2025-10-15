@@ -1,0 +1,92 @@
+﻿@{
+    Layout = "~/Views/Shared/Client_Layout.cshtml";
+}
+<style>
+    .box{
+        background-color: /* #e6f0ff */ /*  #eeeeee */ #f9f5f0; 
+      /*    background-color:white; */
+        margin:0 auto;
+        padding:20px;
+        height:100%;
+        width:450px;
+        margin-top:20px;
+        box-shadow:10px 10px 8px lightgray;
+        border-radius: 9px;
+    }
+    .box form{
+        font-family:Arial;
+        font-size:30px;
+       /*  background-color:white; */
+    }
+    .box form input{
+        margin-top:22px;
+        padding:8px;
+        border-radius:9px;
+    }
+    .lbl{
+        font-size:40px;
+        font-family:'Microsoft PhagsPa';
+        font-weight:bold;
+        color: #2c3e50;
+        text-align:center;
+        margin:0 auto;
+
+    }
+    .btn{
+        width:385px;
+        padding:20px;
+        font-size:30px;
+        background-color: #2c3e50 ;
+        color: #ffffff;
+    }
+    .btn:hover{
+        background-color: #1a252f;
+        color:white;
+    }
+    .reg-text{
+        font-size:21px;
+        font-family:arial;
+        margin-top:20px;
+        padding:5px;
+        margin-bottom:-4px;
+        text-align:center;
+    }
+</style>
+<body style="background-color:#fffff0">
+<div class="box">
+    <form action="/Home/Login" method="post">
+        <label class="lbl">Login</label><br />
+        <input type="text" name="Username" id="Username" placeholder="Username" /><br />
+            <input type="hidden" name="id" id="id" value="@ViewBag.ProductId" />
+        <input type="password" name="Password" id="Password" placeholder="Password" value="" /><br />
+        <input type="submit" class="btn" name="name" value="Login" /><br />
+        <p class="reg-text">You Have Not Registered? Please Register First <a asp-action="Registration" style="font-weight:bold;" asp-controller="Home">Registration</a></p>
+    </form>
+</div>
+</body>
+@if (ViewBag.ClientLogError!=null)
+{
+    <script>
+        alert("@ViewBag.ClientLogError");
+    </script>
+}
+
+
+<script>
+    function login()
+    {
+        var name=document.getElementById("Username").value;
+        var pass=document.getElementById("Password").value;
+
+        $.post("/Home/Login",{Username:name,Password:pass})
+        .done(function()
+        {
+            alert("Login Successfully");
+            // window.location.href = "/Home/Index";
+        })
+        .fail(function()
+        {
+            alert("Login Failed")
+        })
+    }
+</script>

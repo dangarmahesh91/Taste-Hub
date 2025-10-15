@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Taste_Hub</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Taste_Hub.styles.css" asp-append-version="true" />
+    <style>
+        *{
+        margin:0;
+        padding:0;
+        }
+        .header{
+        /* Background: linear-gradient(90deg, #141E30, #243B55); */
+        background-color: #F5E1C8;
+        height:100%;
+        width:100%
+
+        }
+        .ul{
+        list-style-type:none;
+        margin: 0;
+        padding: 0;
+        font-size:28px;
+        font-family:'Microsoft PhagsPa';
+
+        }
+        .ul li{
+
+        display: inline-block;            
+        padding:20px;           
+        }
+        .ul li a{
+        /* color: #FFFFFF; */ 
+        color: maroon;
+        text-decoration:none;
+        }
+        .ul li a:hover{ 
+        /* background-color:palevioletred; */
+        /*  background-color: #00E0FF; */
+        color:white;
+
+        }
+        .menu a{
+        margin-top:1500px;
+        }
+        .dropdown{display:none;}
+
+        ul li:hover .dropdown{
+        display:block;
+        position:absolute;
+        list-style-type:none;
+        margin:0;
+        padding:0;
+        /*  background-color: #F5E1C8; */
+        background-color: #fffff0;
+        color: maroon;
+        margin-top:20px;
+        }
+        .dropdown li a:hover{
+        background-color:maroon;
+        width:100%;             
+        }
+        .dropdown li{
+        display:block;
+        margin:0;
+        padding:4px;
+        font-size:28px;
+        font-family:monospace;
+        }
+        .footer{
+        background: #141E30;
+        margin:0;
+        padding:0;
+        font-family:'Microsoft PhagsPa';
+        font-size:20px;
+        display:flex;
+        height:100%;
+        width:100%;
+        margin-bottom:-70px;
+
+        }
+        .footer ul{
+        padding: 10px;
+        text-align: center;
+
+        margin-right: 100px;
+        color: #CCCCCC; 
+        /* color:white; */
+        }
+        .footer ul li{
+        display:block;
+        margin:0;
+        padding:0;
+        list-style-type:none;
+        }
+        .footer ul li:hover{
+        color:white;
+        }
+        ul + hr {
+        border: none;
+        height: 3px;
+        background-color: blue;
+        }
+        .Image{
+        margin:0;
+        padding:0;
+        display:flex;
+        }
+        Image ul{
+        display:inline-block;
+        }
+        .Image ul li{
+        display:block;
+        margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="header">
+                <div>
+                    <ul class="ul">
+                        <li><img height="100px" src="~/Image Static/Test Hub Logo 1-150Px.png" /></li>
+                        <li class="menu">
+                            <a asp-action="Index" asp-controller="Home" >Home</a>
+                        </li>
+                        <li class="menu">
+                            <a asp-action="#" asp-controller="#">Category</a>
+                            <ul class="dropdown" >
+                                <li>
+                                    <a asp-action="Product" asp-controller="Home" asp-route-name="Pizza">Pizza</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Product" asp-controller="Home" asp-route-name="Desserts & Sweets">Deserts & Sweet</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Product" asp-controller="Home" asp-route-name="Sandwich">Sandwich</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Product" asp-controller="Home" asp-route-name="Dosa">Dosa</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Product" asp-controller="Home" asp-route-name="Thali">Thali</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Product" asp-controller="Home" asp-route-name="Bevarages">Beverages</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Product" asp-controller="Home" asp-route-name="Breakfast Item">Breakfast Items</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu">
+                            <a asp-action="Contact_Us" asp-controller="Home">Contact Us</a>
+                        </li>
+                        <li class="menu">
+                            <a asp-action="About_Us" asp-controller="Home">About Us</a>
+                        </li>
+                        <li class="menu">
+                            <a asp-action="Feedback" asp-controller="Home">Feedback</a>
+                        </li>
+                        <li class="menu">
+                            @if(Context.Session.GetString("unm")==null)
+                            {
+                                <a asp-action="Login" asp-controller="Home">Login</a>
+                            }
+                            else
+                            {
+                                <a asp-action="Logout" asp-controller="Home">Logout</a>
+                            }
+                        </li>
+                        <li class="menu">
+                            <a asp-action="Cart" asp-route-cart="cart" asp-controller="Home">Cart</a>
+                        </li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <ul style="margin-left:150px;">About Taste Hub<hr style="color:white"/>
+                <li>Who We Are</li>
+                <li>Blog</li>
+                <li>Work With Us</li>
+                <li>Report Fraud</li>
+            </ul>
+            <ul>Contact Us<hr style="color:white" />
+                <li>Help & Support</li>
+                <li>Ride With Us</li>
+            </ul>
+            <ul>Available In<hr style="color:white" />
+                <li>Junagadh</li>
+                <li>Rajkot</li>
+                <li>Surat</li>
+                <li>Ahmedabad</li>
+                <li>Baroda</li>
+            </ul>
+            <ul>Learn More<hr />
+                <li>Privacy</li>
+                <li>Security</li>
+                <li>Terms</li>
+            </ul>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

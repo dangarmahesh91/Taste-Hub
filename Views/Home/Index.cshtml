@@ -1,0 +1,132 @@
+﻿@model List<Taste_Hub.Models.Class_Admin_Food>
+@{
+     Layout = "~/Views/Shared/Client_Layout.cshtml";
+}
+<style>
+    .main{
+        margin:0 auto;
+        padding:10px;
+        max-width:1400px;
+        justify-content:center;
+    }
+    .row{
+        margin-top:2px;
+    }
+   
+    .box{
+        display:inline-block;
+      /*   box-shadow:8px 8px 8px lightgray,-5px -5px 5px lightgray; */
+        border-radius:10px;
+        border:1px solid black;
+        width:300px;
+        margin:0 auto;
+        margin-top:35px;
+        font-family:'Microsoft PhagsPa';
+        background-color:white;
+        
+    }
+        .box:hover{
+            box-shadow: 8px 8px 8px lightgray,-5px -5px 5px lightgray;
+            transform: scale(1.05);
+            transition: 0.3s;
+        }
+
+    .box img {
+        border-radius: 10px;
+        margin-top: 15px;
+    }
+   .box .btn{
+        width:60%;
+        padding:5px;
+        background-color:blue;
+        color:white;
+        font-size:25px;
+        margin-bottom: 15px;
+        background-color: /* #4CAF50 */ /*  #D97706 */ /* #1E1E1E */ #FACC15;
+        border-radius:10px;
+        color: #FFFFFF;
+   }
+   .box .btn:hover{
+                background-color: /* #388E3C */ /* #B45309 */ /* #FACC15 */ #EAB308;
+                color: #FFFFFF;
+   }
+   .box .name{
+       font-weight:bold;
+       font-size:20px;
+   }
+
+        .box .price {
+            color: green;
+            font-weight: bold;
+            margin:0 auto;
+            margin-top:-10px;
+            font-size:20px;
+        }
+    .description {
+        line-height: 1.4;
+        height:auto;
+        color: #333;
+        font-size: 16px;
+        text-align: justify;
+    }
+
+    .read-more {
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+</style>
+<body style="background-color:#fffff0">
+    <h1 style="color: maroon;margin-top:10px;" align="center">Welcome! @ViewBag.Session</h1>
+<div class="main" align="center">
+    <div class="row" align="center">
+        @foreach (var item in Model)
+        {
+           <div class="box">
+               @* <input type="hidden" name="Id" id="Id" value="@item.Id"/> *@
+               <img src="@item.Image" alt="Image" height="250" width="250" />
+               <p class="name">@item.Name</p>
+                <p class="price">₹ @item.Price</p>
+                @* <p class="description">@item.Description</p> *@
+                    <p class="description">
+                        <span class="short-text">
+                            @(item.Description.Length > 65 ? item.Description.Substring(0, 50) + "..." : item.Description)
+                        </span>
+
+                        @if (item.Description.Length > 65)
+                        {
+                            <span class="full-text" style="display:none;">@item.Description</span>
+                            <a href="javascript:void(0);" class="read-more" style="color:#007bff; cursor:pointer;">Read More</a>
+                        }
+                    </p>
+                <input type="button" class="btn" onclick="view(@item.Id)" name="name" value="View" />
+           </div>
+        }
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on('click', '.read-more', function () {
+        var $this = $(this);
+        var $shortText = $this.siblings('.short-text');
+        var $fullText = $this.siblings('.full-text');
+
+        if ($fullText.is(':visible')) {
+            $fullText.hide();
+            $shortText.show();
+            $this.text('Read More');
+        } else {
+            $fullText.show();
+            $shortText.hide();
+            $this.text('Read Less');
+        }
+    });
+    function view(id)
+    {
+            window.location.href="/Home/view?Id="+id;
+    }
+</script>

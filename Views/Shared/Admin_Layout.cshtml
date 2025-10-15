@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Taste_Hub</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Taste_Hub.styles.css" asp-append-version="true" />
+    <style>
+        .side-bar{
+            height:110vh;
+            width:250px;
+            position:fixed;
+            background-color: #262b40;
+            padding:10px;
+            top:0;
+            left:0;
+            color: #e8ebf1;
+            padding-top: 20px;
+        }
+        .side-bar h2{
+            color:white;
+            font-family:Arial;
+        }
+        .side-bar a{
+            text-decoration:none;
+            font-family:'Microsoft PhagsPa';
+            font-size:20px;
+            color:white;
+            display: block;
+            padding:10px 15px;
+        }
+        .side-bar a:hover{
+             background-color: #495057;
+        }
+        .container{
+            margin-left:250px;
+            min-height:110vh;
+            display:flex;
+            flex-direction: column;
+        }
+        .content{
+            flex:1;
+            padding:20px;
+        }
+        .footer{
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .logo {
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            font-size: 32px;
+            letter-spacing: 1px;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+            .logo .highlight {
+                color: #ff9800; /* Orange accent for "Taste" */
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+           <div class="side-bar">
+                <h2 class="text-center logo">
+                    <span class="highlight">Taste</span> Hub
+                </h2>
+               <hr />
+                <a asp-area="" asp-controller="Admin_ood" asp-action="Dashboard">🏠 Dashboard</a><br />
+                <a asp-area="" asp-controller="Admin_ood" asp-action="Category">🗂️ Category</a><br />
+                <a asp-area="" asp-controller="Admin_ood" asp-action="Food">🍔 Food</a><br />
+                <a asp-area="" asp-controller="Admin_ood" asp-action="Users">👤 User</a><br />
+                <a asp-area="" asp-controller="Admin_ood" asp-action="Feedback">💬 Feedback</a><br />
+                <a asp-area="" asp-controller="Admin_ood" asp-action="Logout">🚪 Logout</a>
+           </div>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="content">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <p>
+                &copy; @DateTime.Now.Year <strong>Taste Hub</strong>.
+                All Rights Reserved. | Designed & Developed by <span style="color:#ff9800; font-weight:600;">Mahesh Dangar</span>
+            </p>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
